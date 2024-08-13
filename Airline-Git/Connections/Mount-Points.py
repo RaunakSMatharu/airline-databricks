@@ -53,6 +53,18 @@ if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
 
 # COMMAND ----------
 
+mountPoint = "/mnt/publishstoragegen2acc/"
+
+# Mount the ADLS Gen2 storage account
+if not any(mount.mountPoint == mountPoint for mount in dbutils.fs.mounts()):
+    dbutils.fs.mount(
+        source="abfss://publish@sinkgen2acc.dfs.core.windows.net/",
+        mount_point=mountPoint,
+        extra_configs=configs
+    )
+
+# COMMAND ----------
+
 dbutils.fs.ls('/mnt/cleanstoragegen2acc/')
 
 # COMMAND ----------
